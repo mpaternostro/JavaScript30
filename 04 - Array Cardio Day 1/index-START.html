@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
 </head>
+
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
@@ -33,45 +35,116 @@
     // 1. Filter the list of inventors for those who were born in the 1500's
     // HACERLO COMO UNA FUNCION COMUN, Y DESPUES CAMBIAR LA FUNCTION POR LA FLECHA (ES6) [1 LINEA]
 
+    // const inventorsXVCentury = inventors.filter(function(inventor){
+    //   if (inventor.year >= 1500 && inventor.year < 1600) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // });
+
+    // const inventorsXVCentury = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600 ? true : false);
+    // Esto es lo mismo que la de mas arriba
+
+    const inventorsXVCentury = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year < 1600));
+    // Si se da esa condicion da return true, sino false
+
+    console.log(inventorsXVCentury);
 
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
     // HACERLO COMO UNA FUNCION COMUN, Y DESPUES CAMBIAR LA FUNCTION POR LA FLECHA (ES6) [1 LINEA]
 
+    // const fullNames = inventors.map(function(inventor){
+    //   return `${inventor.first} ${inventor.last}`;
+    // });
 
+    const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+
+    console.log(fullNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
     // HACERLO COMO UNA FUNCION COMUN, Y DESPUES CAMBIAR LA FUNCION POR LA FLECHA Y USAR UN OPERADOR TERNARIO [1 LINEA]
 
+    // const oldestInventors = inventors.sort(function(a, b){
+    //   if (a.year > b.year){
+    //     return 1;
+    //   } else {
+    //     return -1;
+    //   }
+    // });
 
+    const oldestInventors = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+
+    console.log(oldestInventors);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
     // HACERLO COMO UNA FUNCION COMUN, Y DESPUES CAMBIAR LA FUNCTION POR LA FLECHA (ES6) [1 LINEA]
 
+    // const totalYears = inventors.reduce(function (acum, inventor) {
+    //   return acum + (inventor.passed - inventor.year);
+    // }, 0);
+
+    const totalYears = inventors.reduce((acum, inventor) => acum + (inventor.passed - inventor.year), 0);
+
+    console.log(totalYears);
 
     // 5. Sort the inventors by years lived
     // HACERLO COMO UNA FUNCION COMUN, Y DESPUES CAMBIAR LA FUNCTION POR LA FLECHA (ES6) [1 LINEA]
 
+    const mostYearsLived = inventors.sort((a, b) => (a.passed - a.year) > (b.passed - b.year) ? 1 : -1);
 
+    console.log(mostYearsLived);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
     // ESTO VA A HABER QUE CORRERLO EN LA CONSOLA DE ESA PAGINA. SE PUEDE ESCRIBIR ACA E IR COPIANDO Y PEGANDO
 
+    // const category = document.querySelector('.mw-category');
+    // const boulevardLi = Array.from(category.querySelectorAll('a'));
+    // const boulevardText = boulevardLi.map(boulevard => boulevard.textContent);
+    // const boulevardWithDe = boulevardText.filter(boulevard => (boulevard.includes('de')));
+    // console.log(boulevardWithDe);
+    // // Mi metodo original
+
+    // const boulevard = Array.from(document.querySelector('.mw-category').querySelectorAll('a'))
+    //                   .map(boulevard => boulevard.textContent)
+    //                   .filter(streetName => streetName.includes('de'));
+    // console.log(boulevard);
+    // // Metodo con menos constantes
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
     // ACA HABRIA QUE USAR SPLIT, EN EL VIDEO USA UNA FUNCION CON DOS ARGUMENTOS Y SE ORDENAN SOLOS (NO SE PORQUE)
 
+    const sortAlpha = people.sort((lastOne, nextOne) => {
+      const [aLast, aFirst] = lastOne.split(', ');
+      const [bLast, bFirst] = nextOne.split(', ');
+      return aLast > bLast ? 1 : -1;
+    });
+
+    console.log(sortAlpha);
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    // ENTENDER COMO FUNCIONA EL REDUCE
     // HACERLO COMO UNA FUNCION COMUN, Y DESPUES CAMBIAR LA FUNCTION POR LA FLECHA (ES6) [1 LINEA]
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+
+    const sumUp = data.reduce((acum, b) => {
+      if (!acum[b]) { // Esto quiere decir, si el acum en su posicion 'car' no existe, crea esa posicion
+        acum[b] = 0; // Por unica vez va a crear esa posicion que es unica para este tipo de transporte
+      }
+      acum[b]++; // Al ya existir esa posicion del medio de transporte, le suma un 1
+      return acum;
+    }, {});
+
+    console.log(sumUp);
 
   </script>
 </body>
+
 </html>
