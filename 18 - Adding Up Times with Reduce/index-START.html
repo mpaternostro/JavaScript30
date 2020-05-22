@@ -182,6 +182,38 @@
     </li>
   </ul>
 <script>
+  function getTime(dataTimeElement) {
+    return dataTimeElement.dataset.time.split(':').map(parseFloat);
+  }
+
+  function getFullDuration(totalSeconds) {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds - hours * 3600) / 60);
+    const seconds = totalSeconds - hours * 3600 - minutes * 60;
+    return { hours, minutes, seconds };
+  }
+
+  const $videosTime = Array.from(document.querySelectorAll('[data-time]'));
+  
+  // map + reduce
+  const videosDurations = $videosTime.map(video => {
+    const time = getTime(video);
+    return time[0] * 60 + time[1];
+  });
+
+  const totalDuration = videosDurations.reduce((acc, currentValue) => acc + currentValue);
+  const { hours, minutes, seconds } = getFullDuration(totalDuration);
+  const totalDurationStr = `Total videos length is ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+  console.log(totalDuration);
+  console.log(totalDurationStr);
+
+  // reduce
+  const newTotalDuration = $videosTime.reduce((acc, currentValue) => {
+    const time = getTime(currentValue);
+    return acc + time[0] * 60 + time[1];
+  }, 0);
+  console.log(newTotalDuration);
+
 </script>
 </body>
 </html>
